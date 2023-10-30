@@ -30,7 +30,6 @@ export class EditUserComponent {
   private fb: FormBuilder) { }
 
   ngOnInit() {
-    console.log(this.user.firstName);
   }
 
 
@@ -45,19 +44,29 @@ export class EditUserComponent {
       // validate User
       //Bei einem vorhandenem User mit userId
       if(user.id) {        
-       /*  this.us.updateUser(this.user).subscribe(res => {
-          console.log(res);          
-        }) */
+        console.log("alt");
+        
+        this.us.updateUser(this.user).subscribe(res => {
+          //console.log(res);
+          if(res) {
+            console.log(res);   
+            this.closeDialog(true)          }
+        })
       } else {
+        console.log("neu");
+        
         //Bei einem neuem User ohne userId
         this.us.newUser(this.user).subscribe(res => {
-          console.log(res);
+          if(res) {
+            console.log(res);
+            this.closeDialog(true)
+          }          
         })
       }      
     }    
   }
 
-  closeDialog() {
-    this.dialogRef.close(false);
+  closeDialog(status: boolean): any {
+    this.dialogRef.close(status);
   }
 }

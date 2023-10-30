@@ -1,6 +1,6 @@
 <div>
     <div class="head">
-        <mat-icon id="close-icon" (click)="closeDialog()">close</mat-icon>
+        <mat-icon id="close-icon" (click)="closeDialog(false)">close</mat-icon>
 
     </div>
 
@@ -44,7 +44,7 @@
 
      <div class="buttons">                    
         <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()">speichern</button>
-        <button mat-raised-button color="secundary"(click)="closeDialog()">abbrechen</button>
+        <button mat-raised-button color="secundary"(click)="closeDialog(false)">abbrechen</button>
      </div>
 
       

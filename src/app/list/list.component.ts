@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import { ToBackendService} from '../service/to-backend.service'
 import { User} from '../shared/user'
-import { DialogService } from '../service/dialog.service';
 import Swal from 'sweetalert2'
-import { firstValueFrom } from 'rxjs';
+import { EditUserComponent } from '../dialog/edit-user/edit-user.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class ListComponent {
 
   constructor(
     private us: ToBackendService,
-    private dialog: DialogService
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -28,23 +28,37 @@ export class ListComponent {
     })
   }
 
+  //Neuer User 
+  //zunächst neuen User Instanzieren mit leeren werten und ohne ID
+  //dann User an Dialog schicken
+  // gibt Dialog true zurück -> Fenster neu laden. 
+  // man könnte den User auch ins array puschen, ohne eine neue db Abfrage
   newUser() {
-    let user = {
+    const user = {
       firstName: "",
       lastName: "",
       birthDate: new Date(""),
       email: "",
       gender: ""
     }
-    this.dialog.openEditSpieler(user)
+    this.dialog.open(EditUserComponent, {
+      data: user
+    }).afterClosed().subscribe(res => {
+      if(res) this.ngOnInit()      
+    })    
   }
 
-  async editUser(user: User) {
-    this.dialog.openEditSpieler(user)  
+  //wie oben nur mit vorhandenem User
+  editUser(user: User) {    
+    this.dialog.open(EditUserComponent, {
+      data: user
+      }).afterClosed().subscribe(res => {
+      if(res) this.ngOnInit()      
+    }) 
   }
 
-
-
+  //Confirm Window mit Sweetalert
+  // ggf user löschen
   delUser(user: User) {
     Swal.fire({
       title: user.firstName +' ' + user.lastName + ' wirklich löschen?',
