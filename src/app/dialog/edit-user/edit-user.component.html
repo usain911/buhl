@@ -1,0 +1,55 @@
+<div>
+    <div class="head">
+        <mat-icon id="close-icon" (click)="closeDialog()">close</mat-icon>
+
+    </div>
+
+    <div class="cont">
+    <form [formGroup]="form">
+        <table class="full-width" cellspacing="0"><tr>
+            <td>  
+                <mat-form-field>
+                    <label for="first-name">First Name: </label>
+                    <input matInput  id="first-name" type="text" formControlName="firstName">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <label for="last-name">Last Name: </label>
+                    <input matInput  id="last-name" type="text" formControlName="lastName">
+                </mat-form-field>
+            </td>
+        </tr></table>
+  
+         
+        <mat-form-field class="full-width">
+            <label for="email">E-Mail </label>
+            <input matInput id="email" type="text" formControlName="email">
+        </mat-form-field>
+
+        
+        <mat-form-field class="full-width">
+            <label for="last-name">Geburtstag </label>
+            <input matInput id="last-name" type="date" formControlName="birthDate">
+        </mat-form-field>      
+
+       
+        <mat-form-field>
+            <mat-label>Select</mat-label>
+            <mat-select formControlName="gender">
+                <mat-option value="male">Mann</mat-option>
+                <mat-option value="female">Frau</mat-option>
+            </mat-select> 
+        </mat-form-field>
+
+     <div class="buttons">                    
+        <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()">speichern</button>
+        <button mat-raised-button color="secundary"(click)="closeDialog()">abbrechen</button>
+     </div>
+
+      
+      </form>
+    </div>
+
+</div>
+  
